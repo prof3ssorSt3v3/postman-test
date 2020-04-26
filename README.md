@@ -1,6 +1,8 @@
 # postman-test
 
-Repo for video demo of how to use postman api test scripts
+Repo for video demo of how to use postman api test scripts. The API itself has been stripped down to its most basic functionality for the tests. All the scripts are at the root level of the project. The data is just being stored in memory with a single base set of user and movie objects from the `data.js` file.
+
+## Launch the Server
 
 To launch the server use this command:
 
