@@ -73,8 +73,8 @@ const hashPass = async (req, res, next) => {
 };
 
 const uniqueEmail = (req, res, next) => {
-  let exists = users.includes((user) => user.email === req.body.email);
-  if (exists) {
+  let userIndex = users.findIndex((user) => user.email === req.body.email);
+  if (userIndex > -1) {
     //duplicate exists
     res
       .status(400)
