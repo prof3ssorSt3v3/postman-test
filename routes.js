@@ -84,7 +84,8 @@ router.delete('/movies/:id', authenticate, (req, res) => {
     (movie) => movie._id === movieID && movie.owner === parseInt(req.user._id)
   );
   if (idx > -1) {
-    res.status(200).send({ data: { message: 'Delete Success' } });
+    movies.splice(idx, 1);
+    res.status(200).send({ data: { _id: movieID, message: 'Delete Success' } });
   } else {
     res.status(400).send({ error: { code: 258, message: 'Invalid movie id' } });
   }
