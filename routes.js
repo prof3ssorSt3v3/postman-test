@@ -3,12 +3,14 @@ const express = require('express');
 const router = express.Router();
 const users = require('./data').users;
 const movies = require('./data').movies;
-const authenticate = require('./utils').authenticate;
-const hashPass = require('./utils').hashPass;
-const uniqueEmail = require('./utils').uniqueEmail;
-const createToken = require('./utils').createToken;
-const findUser = require('./utils').findUser;
-const validPass = require('./utils').validPass;
+const {
+  authenticate,
+  hashPass,
+  uniqueEmail,
+  createToken,
+  findUser,
+  validPass,
+} = require('./utils');
 
 //WARNING NOT SANITIZING USER or MOVIE DATA
 
