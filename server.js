@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const port = process.env.API_PORT || 4444;
+const cors = require('cors');
 const apiRoutes = require('./routes');
 
 //handle json body request
 app.use(express.json());
+app.use(cors());
 
 //handle all the routes starting with /api/
 app.use('/api', apiRoutes);
