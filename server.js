@@ -5,6 +5,7 @@ const apiRoutes = require('./routes');
 
 //handle json body request
 app.use(express.json());
+
 //handle all the routes starting with /api/
 app.use('/api', apiRoutes);
 
