@@ -14,7 +14,7 @@ npm rum dev
 
 ### Health Check and APIKey Test
 
-GET http://localhost:3000/
+**GET** `http://localhost:3000/`
 
 This base route can be used to check if the API is currently running. If the server is running there should always be a response.
 
