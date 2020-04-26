@@ -46,7 +46,7 @@ router.get('/movies', authenticate, (req, res) => {
 router.get('/movies/:id', authenticate, (req, res) => {
   // GET /api/movies/id - send the details about ONE movie
   // if the owner matches req.user.id
-  let movieID = parseInt(req.params.id);
+  let movieID = req.params.id;
   let movieMatch = movies.find(
     (movie) => movie._id === movieID && movie.owner === parseInt(req.user._id)
   );
@@ -63,7 +63,9 @@ router.get('/movies/:id', authenticate, (req, res) => {
 router.post('/movies', authenticate, (req, res) => {
   // POST /api/movies - add a movie for current user
   let newMovie = {
-    _id: Date.now(),
+    _id: [...Array(30)]
+      .map((e) => ((Math.random() * 36) | 0).toString(36))
+      .join(''),
     title: req.body.title,
     year: req.body.year,
     owner: parseInt(req.user._id),
@@ -77,7 +79,7 @@ router.post('/movies', authenticate, (req, res) => {
 router.delete('/movies/:id', authenticate, (req, res) => {
   // DELETE /api/movies - delete a specific movie
   // user id from the token
-  let movieID = parseInt(req.params.id);
+  let movieID = req.params.id;
   let idx = movies.findIndex(
     (movie) => movie._id === movieID && movie.owner === parseInt(req.user._id)
   );
