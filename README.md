@@ -7,7 +7,7 @@ Repo for video demo of how to use postman api test scripts. The API itself has b
 To launch the server use this command:
 
 ```sh
-npm rum dev
+npm run dev
 ```
 
 ## Routes
