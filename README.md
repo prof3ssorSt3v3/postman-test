@@ -14,7 +14,7 @@ npm rum dev
 
 **POST** `http://localhost:3000/api/users/register`
 
-Body of request must be JSON. Sample:
+Body of **request** must be JSON. Sample:
 
 ```json
 {
@@ -27,7 +27,7 @@ Body of request must be JSON. Sample:
 
 **POST** `http://localhost:3000/api/users/tokens`
 
-Body of request must be JSON. Sample:
+Body of **request** must be JSON. Sample:
 
 ```json
 {
@@ -36,7 +36,7 @@ Body of request must be JSON. Sample:
 }
 ```
 
-Valid request will return a JSON string like this sample:
+Valid request will return a JSON string **response** like this sample:
 
 ```json
 {
@@ -52,11 +52,45 @@ No body required. Authorization Bearer token required in the headers. Will retur
 
 **GET** `http://localhost:3000/api/movies`
 
+Sample **Response**:
+
+```json
+{
+  "data": [
+    {
+      "_id": 1587912695511,
+      "title": "Alien",
+      "year": 1979,
+      "owner": 1587912698986
+    },
+    {
+      "_id": 1587921091646,
+      "title": "Avatar",
+      "year": 2009,
+      "owner": 1587912698986
+    }
+  ]
+}
+```
+
 ### Get a specific movie
 
 No body required. Authorization Bearer token required in the headers. Will get details of specific movie for current user, based on the token.
 
 **GET** `http://localhost:3000/api/movies/:id`
+
+Sample **response**:
+
+```json
+{
+  "data": {
+    "_id": 1587912695511,
+    "title": "Alien",
+    "year": 1979,
+    "owner": 1587912698986
+  }
+}
+```
 
 ### Add a new movie
 
@@ -71,11 +105,44 @@ Body must be JSON. Authorization Bearer token required in the headers. Adds a ne
 
 **POST** `http://localhost:3000/api/movies`
 
+**Response** will have the same data, plus an \_id property.
+
+```json
+{
+  "data": {
+    "_id": 1587921293849,
+    "title": "Avatar",
+    "year": 2009
+  }
+}
+```
+
 ### Delete a movie
 
 No body required. Authorization Bearer token required in the headers. Movie id will come from the URL. The owner of the movie must match the user id in the token.
 
 **DELETE** `http://localhost:3000/api/movies/:id`
+
+**Response** for the delete will just be the id for the deleted movie
+
+```json
+{
+  "data": { "_id": 1587921293849 }
+}
+```
+
+## Error Responses
+
+All the errors from the server should return as valid JSON data. They will have an HTTP status code of 400. They will have the same data structure in the JSON which includes `code` and `message` properties. Sample:
+
+```json
+{
+  "error": {
+    "code": 111,
+    "message": "Not gonna do it."
+  }
+}
+```
 
 ## Tokens
 
