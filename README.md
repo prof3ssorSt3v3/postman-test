@@ -12,7 +12,7 @@ npm rum dev
 
 ## Routes
 
-### Health check
+### Health Check and APIKey Test
 
 GET http://localhost:3000/
 
