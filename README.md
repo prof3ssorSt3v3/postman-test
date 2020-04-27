@@ -2,11 +2,21 @@
 
 Repo for video demo of how to use postman api test scripts. The API itself has been stripped down to its most basic functionality for the tests. All the scripts are at the root level of the project. The data is just being stored in memory with a single base set of user and movie objects from the `data.js` file.
 
+## Set up
+
+Once you have downloaded or cloned the repo you need to install the dependencies for the API. We do this using `npm`.
+
+```cli
+npm install
+```
+
+This command will read the package.json file and install all the required dependencies, such as, `express`, `bcrypt`, and `jsonwebtoken`.
+
 ## Launch the Server
 
 To launch the server use this command:
 
-```sh
+```cli
 npm run dev
 ```
 
