@@ -307,6 +307,12 @@
 						"exec": [
 							"pm.test('got all movies', function(){",
 							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test('list has two movies', function(){",
+							"    const {data} = pm.response.json();",
+							"    //list has two movies",
+							"    return data.length == 2;",
 							"})"
 						],
 						"type": "text/javascript"
@@ -429,6 +435,12 @@
 						"exec": [
 							"pm.test('got all movies AGAIN', function(){",
 							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('list has two movies', function(){",
+							"    const {data} = pm.response.json();",
+							"    //only one movie left",
+							"    return data.length == 1;",
 							"})"
 						],
 						"type": "text/javascript"
