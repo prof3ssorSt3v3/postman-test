@@ -1,0 +1,645 @@
+{
+	"id": "00127732-3993-45fd-9a11-684554714e88",
+	"name": "User Movie Tests Demo",
+	"timestamp": "2022-01-21T15:25:24.905Z",
+	"collection_id": "19214975-04dafaad-5bba-404f-a7c7-a4fde2307ea3",
+	"folder_id": 0,
+	"environment_id": "58f94d9c-0b20-4896-91b5-fef12e462180",
+	"totalPass": 69,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "05f18d0e-d9ee-40e9-b538-b6e43389814b",
+			"name": "GET healthcheck Fail",
+			"url": "http://localhost:3000/",
+			"time": 89,
+			"responseCode": {
+				"code": 401,
+				"name": "Unauthorized"
+			},
+			"tests": {
+				"health check should fail": true,
+				"Status is undefined": true,
+				"Error response is presented": true,
+				"Code  is 999": true,
+				"Error Message is presented": true,
+				"Check for content type JSON": true
+			},
+			"testPassFailCounts": {
+				"health check should fail": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error response is presented": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Code  is 999": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error Message is presented": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Check for content type JSON": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				89
+			],
+			"allTests": [
+				{
+					"health check should fail": true,
+					"Status is undefined": true,
+					"Error response is presented": true,
+					"Code  is 999": true,
+					"Error Message is presented": true,
+					"Check for content type JSON": true
+				}
+			]
+		},
+		{
+			"id": "7e808701-7745-4acc-ac43-cfefa732e74c",
+			"name": "Healthcheck Pass",
+			"url": "http://localhost:3000/",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"health check should PASS": true,
+				"Status is undefined": true,
+				"message is undefined": true,
+				"JSON is not null": true
+			},
+			"testPassFailCounts": {
+				"health check should PASS": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"message is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"JSON is not null": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"health check should PASS": true,
+					"Status is undefined": true,
+					"message is undefined": true,
+					"JSON is not null": true
+				}
+			]
+		},
+		{
+			"id": "7f71103b-b6d5-47d4-a312-dc203b2222c4",
+			"name": "Register User 1",
+			"url": "http://localhost:3000/api/users/register",
+			"time": 1141,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Created user": true,
+				"error is undefined": true,
+				"Status is undefined": true,
+				"Email is not null": true,
+				"response should NOT be with error": true,
+				"ID is not empty": true,
+				"ID is unique": true
+			},
+			"testPassFailCounts": {
+				"Created user": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Email is not null": {
+					"pass": 1,
+					"fail": 0
+				},
+				"response should NOT be with error": {
+					"pass": 1,
+					"fail": 0
+				},
+				"ID is not empty": {
+					"pass": 1,
+					"fail": 0
+				},
+				"ID is unique": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				1141
+			],
+			"allTests": [
+				{
+					"Created user": true,
+					"error is undefined": true,
+					"Status is undefined": true,
+					"Email is not null": true,
+					"response should NOT be with error": true,
+					"ID is not empty": true,
+					"ID is unique": true
+				}
+			]
+		},
+		{
+			"id": "588e0897-6f73-49b8-98b8-ffa5a6718f7b",
+			"name": "Register Existing User_ FAIL",
+			"url": "http://localhost:3000/api/users/register",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status should be 400": true,
+				"error is defined": true,
+				"Error is not null": true,
+				"error code is defined": true,
+				"Error code is not null": true,
+				"Error code has a correct value": true,
+				"error message is defined": true,
+				"Error message is not null": true,
+				"Error message has a correct value": true
+			},
+			"testPassFailCounts": {
+				"Status should be 400": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is defined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error is not null": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error code is defined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error code is not null": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error code has a correct value": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error message is defined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message is not null": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error message has a correct value": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status should be 400": true,
+					"error is defined": true,
+					"Error is not null": true,
+					"error code is defined": true,
+					"Error code is not null": true,
+					"Error code has a correct value": true,
+					"error message is defined": true,
+					"Error message is not null": true,
+					"Error message has a correct value": true
+				}
+			]
+		},
+		{
+			"id": "1c7737d3-a746-4563-aea3-425dfd5c8b30",
+			"name": "Login User 1",
+			"url": "http://localhost:3000/api/users/tokens/",
+			"time": 973,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"logged in": true,
+				"error is undefined": true,
+				"Status is undefined": true,
+				"has a token": true,
+				"AccessToken is defined": true,
+				"AccessToken is not null": true,
+				"AccessToken has length of 871": true
+			},
+			"testPassFailCounts": {
+				"logged in": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"has a token": {
+					"pass": 1,
+					"fail": 0
+				},
+				"AccessToken is defined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"AccessToken is not null": {
+					"pass": 1,
+					"fail": 0
+				},
+				"AccessToken has length of 871": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				973
+			],
+			"allTests": [
+				{
+					"logged in": true,
+					"error is undefined": true,
+					"Status is undefined": true,
+					"has a token": true,
+					"AccessToken is defined": true,
+					"AccessToken is not null": true,
+					"AccessToken has length of 871": true
+				}
+			]
+		},
+		{
+			"id": "45064e02-e670-49ca-b013-95dcc0ceeb90",
+			"name": "Create Movie User 1",
+			"url": "http://localhost:3000/api/movies",
+			"time": 13,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Created Movie for user 1": true,
+				"Status is undefined": true,
+				"Error response is not presented": true
+			},
+			"testPassFailCounts": {
+				"Created Movie for user 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Error response is not presented": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Created Movie for user 1": true,
+					"Status is undefined": true,
+					"Error response is not presented": true
+				}
+			]
+		},
+		{
+			"id": "e7ddd318-7c0a-4c60-9e55-2e41aa2543af",
+			"name": "Create Movie 2 User 1",
+			"url": "http://localhost:3000/api/movies",
+			"time": 6,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {
+				"Created 2nd Movie for user 1": true,
+				"error is undefined": true,
+				"Status is undefined": true
+			},
+			"testPassFailCounts": {
+				"Created 2nd Movie for user 1": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Created 2nd Movie for user 1": true,
+					"error is undefined": true,
+					"Status is undefined": true
+				}
+			]
+		},
+		{
+			"id": "ff54d391-df8a-44b7-ba62-75d04c9166b9",
+			"name": "Get All Movies User 1",
+			"url": "http://localhost:3000/api/movies",
+			"time": 6,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"got all movies": true,
+				"error is undefined": true,
+				"Status is undefined": true,
+				"list has two movies": true,
+				"ID is unique": true
+			},
+			"testPassFailCounts": {
+				"got all movies": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"list has two movies": {
+					"pass": 1,
+					"fail": 0
+				},
+				"ID is unique": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"got all movies": true,
+					"error is undefined": true,
+					"Status is undefined": true,
+					"list has two movies": true,
+					"ID is unique": true
+				}
+			]
+		},
+		{
+			"id": "5182fbfb-3529-4142-8024-c3f9f48d9e4f",
+			"name": "Get Specific Movie User 1",
+			"url": "http://localhost:3000/api/movies/mwhu93qytgipbnnvzdxffq1jasajhg",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"got a specific movie": true,
+				"error is undefined": true,
+				"Status is undefined": true,
+				"ID is unique": true
+			},
+			"testPassFailCounts": {
+				"got a specific movie": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"ID is unique": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"got a specific movie": true,
+					"error is undefined": true,
+					"Status is undefined": true,
+					"ID is unique": true
+				}
+			]
+		},
+		{
+			"id": "0bdfb927-1428-4d32-9d13-608cf43e3733",
+			"name": "Delete Specific Movie User 1",
+			"url": "http://localhost:3000/api/movies/mwhu93qytgipbnnvzdxffq1jasajhg",
+			"time": 7,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"got a specific movie": true,
+				"error is undefined": true,
+				"Status is undefined": true
+			},
+			"testPassFailCounts": {
+				"got a specific movie": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"got a specific movie": true,
+					"error is undefined": true,
+					"Status is undefined": true
+				}
+			]
+		},
+		{
+			"id": "3a878ee3-05bd-4216-8271-21f0192212f0",
+			"name": "Get All Movies User 1 AGAIN",
+			"url": "http://localhost:3000/api/movies",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				4
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "1bb421d9-8b33-4afe-a807-b1d6a90d17fd",
+			"name": "Check for expired token",
+			"url": "http://localhost:3000/api/movies",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"got all movies AGAIN": true,
+				"error is undefined": true,
+				"Status is undefined": true,
+				"list has two movies": true
+			},
+			"testPassFailCounts": {
+				"got all movies AGAIN": {
+					"pass": 1,
+					"fail": 0
+				},
+				"error is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Status is undefined": {
+					"pass": 1,
+					"fail": 0
+				},
+				"list has two movies": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"got all movies AGAIN": true,
+					"error is undefined": true,
+					"Status is undefined": true,
+					"list has two movies": true
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 2269,
+	"collection": {
+		"requests": [
+			{
+				"id": "05f18d0e-d9ee-40e9-b538-b6e43389814b",
+				"method": "GET"
+			},
+			{
+				"id": "7e808701-7745-4acc-ac43-cfefa732e74c",
+				"method": "GET"
+			},
+			{
+				"id": "7f71103b-b6d5-47d4-a312-dc203b2222c4",
+				"method": "POST"
+			},
+			{
+				"id": "588e0897-6f73-49b8-98b8-ffa5a6718f7b",
+				"method": "POST"
+			},
+			{
+				"id": "1c7737d3-a746-4563-aea3-425dfd5c8b30",
+				"method": "POST"
+			},
+			{
+				"id": "45064e02-e670-49ca-b013-95dcc0ceeb90",
+				"method": "POST"
+			},
+			{
+				"id": "e7ddd318-7c0a-4c60-9e55-2e41aa2543af",
+				"method": "POST"
+			},
+			{
+				"id": "ff54d391-df8a-44b7-ba62-75d04c9166b9",
+				"method": "GET"
+			},
+			{
+				"id": "5182fbfb-3529-4142-8024-c3f9f48d9e4f",
+				"method": "GET"
+			},
+			{
+				"id": "0bdfb927-1428-4d32-9d13-608cf43e3733",
+				"method": "DELETE"
+			},
+			{
+				"id": "3a878ee3-05bd-4216-8271-21f0192212f0",
+				"method": "GET"
+			},
+			{
+				"id": "1bb421d9-8b33-4afe-a807-b1d6a90d17fd",
+				"method": "GET"
+			}
+		]
+	}
+}

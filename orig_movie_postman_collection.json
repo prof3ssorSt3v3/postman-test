@@ -1,0 +1,969 @@
+{
+	"info": {
+		"_postman_id": "04dafaad-5bba-404f-a7c7-a4fde2307ea3",
+		"name": "User Movie Tests Demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET healthcheck Fail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('health check should fail', function (){",
+							"    pm.response.to.have.status(401)",
+							"})",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Error response is presented\", function () {",
+							"    pm.expect(jsonData.error).to.not.be.undefined",
+							"});",
+							"pm.test(\"Code  is 999\", function () {",
+							"    pm.expect(jsonData.error.code).to.eql(999)",
+							"});",
+							"pm.test(\"Error Message is presented\", function () {",
+							"    pm.expect(jsonData.error.message).to.not.be.null",
+							"});",
+							"pm.test(\"Check for content type JSON\", function () {",
+							"    pm.expect('Content-Type') === 'application/json'",
+							"    pm.response.to.be.json;",
+							"    //pm.response.to.have.header('Content-Type', 'application/json');",
+							"    //pm.response.type.to.eql('application/json');",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.environment.set('jsonData', pm.response.json());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Healthcheck Pass",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('health check should PASS', function (){",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"message is undefined\", function () {",
+							"    pm.expect(jsonData.message).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"JSON is not null\", function () {",
+							"    pm.expect(jsonData).to.not.be.null;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-api-key",
+						"value": "MyUniqueApiKey",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User 1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let date = Date.now();",
+							"let email = 'steve.' + date + '@themovies.org';",
+							"pm.environment.set('useremail', email);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('Created user', function(){",
+							"    pm.response.to.have.status(201);",
+							"    const {data} = pm.response.json();",
+							"    pm.environment.set('user1', data._id);",
+							"})",
+							"",
+							"pm.test(\"error is undefined\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is not null\", function () {",
+							"    pm.expect(jsonData.data.email).to.not.be.null;",
+							"});",
+							"",
+							"pm.test(\"response should NOT be with error\", function () {",
+							"    pm.response.to.not.be.error;",
+							"});",
+							"",
+							"pm.test(\"ID is not empty\", function () { ",
+							"   pm.expect(jsonData.data._id).not.have.property('_id','');",
+							"});",
+							"",
+							"pm.test(\"ID is unique\", function () { ",
+							"var jsObject = {};    ",
+							"var keys = Object.keys(jsObject); ",
+							"var myString = \"data\"",
+							"keys.forEach(function(key) { ",
+							"  console.log(key, key == myString)",
+							"    });",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"{{useremail}}\",\n\t\"password\":\"chupacabra\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Existing User_ FAIL",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// let date = Date.now();",
+							"// let email = 'steve.' + date + '@themovies.org';",
+							"// pm.environment.set('useremail', email);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('Status should be 400', function(){",
+							"    pm.response.to.have.status(400);",
+							" ",
+							"})",
+							"",
+							"pm.test(\"error is defined\", function () {",
+							"    pm.expect(jsonData.error).to.not.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Error is not null\", function () {",
+							"    pm.expect(jsonData.error).to.not.be.null;",
+							"});",
+							"pm.test(\"error code is defined\", function () {",
+							"    pm.expect(jsonData.error.code).to.not.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Error code is not null\", function () {",
+							"    pm.expect(jsonData.error.code).to.not.be.null;",
+							"});",
+							"",
+							"pm.test(\"Error code has a correct value\", function () {",
+							"    pm.expect(jsonData.error.code.toString()).to.eql('123');",
+							"});",
+							"",
+							"",
+							"pm.test(\"error message is defined\", function () {",
+							"    pm.expect(jsonData.error.message).to.not.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Error message is not null\", function () {",
+							"    pm.expect(jsonData.error.message).to.not.be.null;",
+							"});",
+							"",
+							"pm.test(\"Error message has a correct value\", function () {",
+							"    pm.expect(jsonData.error.message.toString()).to.eql(\"Email address already in use\");",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"// pm.test(\"response should NOT be with error\", function () {",
+							"//     pm.response.to.not.be.error;",
+							"// });",
+							"",
+							"// pm.test(\"ID is not empty\", function () { ",
+							"//    pm.expect(jsonData.data._id).not.have.property('_id','');",
+							"// });",
+							"",
+							"// pm.test(\"ID is unique\", function () { ",
+							"// var jsObject = {};    ",
+							"// var keys = Object.keys(jsObject); ",
+							"// var myString = \"data\"",
+							"// keys.forEach(function(key) { ",
+							"//   console.log(key, key == myString)",
+							"//     });",
+							"// });",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"{{useremail}}\",\n\t\"password\":\"chupacabra\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('logged in', function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"error is undefined\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"pm.test('has a token', function(){",
+							"   const {data} = pm.response.json();",
+							"   pm.environment.set('token', data.token);",
+							"   return 'token' in data;",
+							"});",
+							"",
+							"",
+							"//////TOKEN/////",
+							"",
+							"//access_token should occur for this response",
+							"pm.test(\"AccessToken is defined\", function () {",
+							"    pm.expect(jsonData.data.token).to.not.be.undefined;",
+							"});",
+							"",
+							"//access_token should not contain a null value",
+							"pm.test(\"AccessToken is not null\", function () {",
+							"    pm.expect(jsonData.data.token).to.not.be.null;",
+							"});",
+							"",
+							"//error should have the correct value length",
+							"pm.test(\"AccessToken has length of 871\", function () {",
+							"    pm.expect(jsonData.data.token).to.have.lengthOf(132)",
+							"});",
+							"",
+							"",
+							"// //expires_in should occur for this response",
+							"// pm.test(\"Verify Token Expiration is defined\", function () {",
+							"//     pm.expect(jsonData.expires_in).to.not.be.undefined;",
+							"// });",
+							"",
+							"// //expires_in should not contain a null value",
+							"// pm.test(\"Verify Token Expiration is not null\", function () {",
+							"//     pm.expect(jsonData.expires_in).to.not.be.null;",
+							"// });",
+							"",
+							"// //expires_in should have the correct value",
+							"// pm.test(\"Verify Token Expiration\", function () {",
+							"//     pm.expect(jsonData.expires_in.toString()).to.eql(\"3600\");",
+							"// });",
+							"",
+							"// //token_type should occur for this response",
+							"// pm.test(\"Verify Token Type is defined\", function () {",
+							"//     pm.expect(jsonData.token_type).to.not.be.undefined;",
+							"// });",
+							"",
+							"// //token_type should not contain a null value",
+							"// pm.test(\"Verify Token Type is not null\", function () {",
+							"//     pm.expect(jsonData.token_type).to.not.be.null;",
+							"// });",
+							"",
+							"// //token_type should have the correct value",
+							"// pm.test(\"Verify Token Type\", function () {",
+							"//     pm.expect(jsonData.token_type).to.eql(\"Bearer\");",
+							"// });",
+							"",
+							"// // Save access_token to be used in subsequent requests",
+							"// pm.environment.set(\"AccessToken\", pm.response.json().access_token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"{{useremail}}\",\n\t\"password\":\"chupacabra\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/tokens/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"tokens",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Movie User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('Created Movie for user 1', function(){",
+							"    pm.response.to.have.status(201);",
+							"    ",
+							"    const {data} = pm.response.json();",
+							"    pm.environment.set('movie1u1', data._id);",
+							"})",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData._id).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.title).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.year).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Error response is not presented\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Avatar\",\n\t\"year\": 2009,\n\t\"owner\": {{user1}}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Movie 2 User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('Created 2nd Movie for user 1', function(){",
+							"    pm.response.to.have.status(201);",
+							"    ",
+							"    const {data} = pm.response.json();",
+							"    pm.environment.set('movie2u1', data._id);",
+							"})",
+							"",
+							"pm.test(\"error is undefined\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData._id).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.title).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.year).to.be.undefined;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Wall-E\",\n\t\"year\": 2008,\n\t\"owner\": {{user1}}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Movies User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('got all movies', function(){",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"error is undefined\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"pm.test('list has two movies', function(){",
+							"    const {data} = pm.response.json();",
+							"    //list has two movies",
+							"    return data.length == 2;",
+							"})",
+							"",
+							"",
+							"pm.test(\"ID is unique\", function () { ",
+							"var jsObject = {};    ",
+							"var keys = Object.keys(jsObject); ",
+							"var myString = \"data\"",
+							"keys.forEach(function(key) { ",
+							"  console.log(key, key == myString)",
+							"    });",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData._id).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.title).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.year).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.owner).to.be.undefined;",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Specific Movie User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('got a specific movie', function(){",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"error is undefined\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"",
+							"pm.test(\"ID is unique\", function () { ",
+							"var jsObject = {};    ",
+							"var keys = Object.keys(jsObject); ",
+							"var myString = \"data\"",
+							"keys.forEach(function(key) { ",
+							"  console.log(key, key == myString)",
+							"    });",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData._id).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.title).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.year).to.be.undefined;",
+							"});",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.owner).to.be.undefined;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/movies/{{movie1u1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"{{movie1u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Specific Movie User 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('got a specific movie', function(){",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"pm.test(\"error is undefined\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/movies/{{movie1u1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies",
+						"{{movie1u1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Movies User 1 AGAIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"",
+							"",
+							"",
+							"// pm.test('got all movies AGAIN', function(){",
+							"//     pm.response.to.have.status(200);",
+							"// });",
+							"",
+							"// pm.test(\"error is undefined\", function () {",
+							"//     pm.expect(jsonData.error).to.be.undefined;",
+							"// });",
+							"",
+							"// pm.test(\"Status is undefined\", function () {",
+							"//     pm.expect(jsonData.status).to.be.undefined;",
+							"// });",
+							"",
+							"// pm.test('list has two movies', function(){",
+							"//     const {data} = pm.response.json();",
+							"//     //only one movie left",
+							"//     return data.length == 1;",
+							"// })",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check for expired token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test('got all movies AGAIN', function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"error is undefined\", function () {",
+							"    pm.expect(jsonData.error).to.be.undefined;",
+							"});",
+							"",
+							"pm.test(\"Status is undefined\", function () {",
+							"    pm.expect(jsonData.status).to.be.undefined;",
+							"});",
+							"",
+							"pm.test('list has two movies', function(){",
+							"    const {data} = pm.response.json();",
+							"    //only one movie left",
+							"    return data.length == 1;",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function pausecomp(millis)",
+							"{",
+							"var date = new Date();",
+							"var curDate = null;",
+							"do { curDate = new Date(); }",
+							"while(curDate-date < millis);",
+							"}",
+							"",
+							"// pausecomp(environment['sleep-interval']);",
+							"",
+							"pausecomp(12000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

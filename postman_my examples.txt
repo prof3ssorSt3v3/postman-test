@@ -1,0 +1,69 @@
+I have used mainly four request methods frequently, which are as below:
+
+POST Request — For Creating Or Updating data,
+PUT Request — For Updating data,
+GET Request — For Retrieving/Fetching data and
+DELETE Request — For Deleting data.
+Request URL — It is where to make the http request.
+
+Request Headers — In request headers it contains key-value of the application.
+
+I have used mainly two key-value, which are as follows:
+
+Content-Type — A content-type describes the format of object data. Content-type, which I have used the most for the requests and responses is application/json.
+
+Authorization — An authorization token, included with requests, is used to identify the requester.
+
+Request Body — It contains the data, if any (depends on type of request method), to be sent with request. I have used raw form of data for sending request. Example is as below:
+
+
+
+
+
+tests[“Status code is 200”] = responseCode.code ===200;
+
+// Check if response body contains a string:
+tests["Body matches string"] = responseBody.has("string_you_want_to_search");
+
+//Check if response body is equal to a particular string:
+tests["Body is correct"] = responseBody === "response_body_string";
+
+//Check for a JSON value:
+var data = JSON.parse(responseBody);
+tests["Your test name"] = data.value === 100;
+
+// Check for Response time is less than 200ms:
+tests["Response time is less than 200ms"] = responseTime < 200;
+
+// Check for Successful POST request status code:
+tests["Successful POST request"] = responseCode.code === 201 || responseCode.code === 202;
+
+// Check for Response header content type:
+tests[‘The Content-Type is JSON’] = postman.getResponseHeader(‘Content-Type’) === ‘application/json’;
+
+
+Postman BDD allows to use BDD syntax to structure tests and fluent Chai-JS syntax to write assertions. So the above test cases could look like as below:
+
+
+
+// Check for Response header content type:
+it(‘should return JSON’, () => {
+ response.should.be.json;
+ response.should.have.header(‘Content-Type’, ‘application/json’);
+ response.type.should.equal(‘application/json’);
+});
+
+
+// Check for Status code is 200:
+it(‘should be a 200 response’, () => {
+ response.should.have.status(200);                                });
+
+// Check for Response time is less than 200ms:
+it(‘should respond in a timely manner’, () => {
+ response.time.should.be.below(200);
+});
+ 
+// Check for Response body message should be ‘User logged in successfully.’:
+it(‘message should contain’, () => {
+response.body.message.should.equal(‘User logged in successfully.’) ;
+});

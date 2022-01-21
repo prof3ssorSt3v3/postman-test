@@ -1,0 +1,104 @@
+// get response data
+var jsonData = pm.response.json();
+
+// verify status code
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+// ensure only response variables that should be returned are returned
+
+//message should not occur for this response
+pm.test("message is undefined", function () {
+    pm.expect(jsonData.message).to.be.undefined;
+});
+
+//Total records should not occur for this response
+pm.test("TotalRecords is undefined", function () {
+    pm.expect(jsonData.totalRecords).to.be.undefined;
+});
+
+//Failed records should not occur for this response
+pm.test("FailedRecords is undefined", function () {
+    pm.expect(jsonData.failedRecords).to.be.undefined;
+});
+
+//status should not occur for this response
+pm.test("Status is undefined", function () {
+    pm.expect(jsonData.status).to.be.undefined;
+});
+
+//error should not occur for this response
+pm.test("error is undefined", function () {
+    pm.expect(jsonData.error).to.be.undefined;
+});
+
+
+
+
+
+
+//test the expected response
+ 
+// for token type OAUTH2.0 :
+
+
+//access_token should occur for this response
+pm.test("AccessToken is defined", function () {
+    pm.expect(jsonData.access_token).to.not.be.undefined;
+});
+
+//access_token should not contain a null value
+pm.test("AccessToken is not null", function () {
+    pm.expect(jsonData.access_token).to.not.be.null;
+});
+
+//error should have the correct value length
+pm.test("AccessToken has length of 871", function () {
+    pm.expect(jsonData.access_token).to.have.lengthOf(871)
+});
+
+EXPIRES:
+
+//expires_in should occur for this response
+pm.test("Verify Token Expiration is defined", function () {
+    pm.expect(jsonData.expires_in).to.not.be.undefined;
+});
+
+//expires_in should not contain a null value
+pm.test("Verify Token Expiration is not null", function () {
+    pm.expect(jsonData.expires_in).to.not.be.null;
+});
+
+//expires_in should have the correct value
+pm.test("Verify Token Expiration", function () {
+    pm.expect(jsonData.expires_in.toString()).to.eql("3600");
+});
+
+
+ TOKEN: 
+
+//token_type should occur for this response
+pm.test("Verify Token Type is defined", function () {
+    pm.expect(jsonData.token_type).to.not.be.undefined;
+});
+
+//token_type should not contain a null value
+pm.test("Verify Token Type is not null", function () {
+    pm.expect(jsonData.token_type).to.not.be.null;
+});
+
+//token_type should have the correct value
+pm.test("Verify Token Type", function () {
+    pm.expect(jsonData.token_type).to.eql("Bearer");
+});
+
+// Save access_token to be used in subsequent requests
+pm.environment.set("AccessToken", pm.response.json().access_token);
+
+
+// 
+var expiryDate = new Date();
+expiryDate = new Date(expiryDate.getTime() + (res.json().expires_in * 1000));
+console.log('expiryDate: ' + expiryDate);
+pm.environment.set('accessTokenExpiry', expiryDate.getTime());
